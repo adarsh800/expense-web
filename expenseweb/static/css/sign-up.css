@@ -1,0 +1,10 @@
+#password {
+  position: absolute;
+  right: 15px;
+  z-index: 5000000;
+  top: -20%;
+  cursor: pointer;
+}
+.fa {
+  font-size: 80%;
+}
