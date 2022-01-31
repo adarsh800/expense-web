@@ -11,4 +11,11 @@
 - Add your team members as per roles <br>
 
 <h3>Benefits</h3>
+- One stop solution for SMEs to manage operations <br>
+- Expense optimization <br>
+- Time tracking of order from pillar to post <br>
+- Manage billing and store inventory <br>
+- Easy-to-use tools for startups <br>
+- Manage and analyse team performance <br>
+- Post order analysis for strategy optimization <br> 
 
