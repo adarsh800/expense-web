@@ -267,7 +267,49 @@
                                     
                                 </div>
                                 
-<!--                                 pagination -->
+
+                                <div class="container-fluid">
+                               
+                                <div class="pagination container-fluid pe-0 mr-0">
+                                    
+                                    <span class="pagination px-3 col-md-10 step-links current">
+                                       
+                                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                   
+                                     </span>
+                                    
+                                   
+                                     <span class="pagination step-links">
+                                       
+                                        {% if page_obj.has_previous %}
+                                        
+                                            <tr> 
+                                        
+                                            <li class="btn-outline-dark round-left page-item p-1">
+                                           
+                                            <a href="?page={{ page_obj.previous_page_number }}">&laquo;Previous</a>
+                                       
+                                            </li>
+                                      
+                                         {% endif %}
+                                        
+                                         {% if page_obj.has_next %}
+                                       
+                                         <li class="btn-outline-dark page-item p-1">
+                                           
+                                         <a class="align-right" href="?page={{ page_obj.next_page_number }}">Next&raquo;</a>
+                                       
+                                       </li>
+                                       
+                                        </tr>
+                                       
+                                        {% endif %}
+                                    
+                                        </span>
+                               
+                                   </div>
+                               
+                                </div>
                                 
                             </div>
                         </div>
