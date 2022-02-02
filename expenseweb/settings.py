@@ -2,7 +2,7 @@
 from pathlib import Path
 import os
 from decouple import config
-import django_heroku
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -142,5 +142,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 # Configure Django App for Heroku.
-
-django_heroku.settings(locals())
+if DEBUG == True:
+    import django_heroku
+    django_heroku.settings(locals())
