@@ -7,9 +7,30 @@ from django.conf import settings
 from .models import UserPreference,new_order
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-# from django.db import models
-# from django.contrib.auth.models import User
-# Create your views here.
+from django.core.paginator import Paginator
+from django.http import JsonResponse
+
+
+
+
+@login_required(login_url='/auth/sign-in')
+def search_order(request):
+    if request.method == 'POST':
+        search_order_str = json.loads(request.body).get('searchText')
+
+
+       
+        data = new_order.objects.filter(first_name_new_order__istartswith = search_order_str, username=request.user) | new_order.objects.filter(
+            second_name_new_order__istartswith = search_order_str, username=request.user) | new_order.objects.filter(
+                email_new_order__istartswith = search_order_str, username=request.user) | new_order.objects.filter(
+                    phone_number_new_order__istartswith = search_order_str, username=request.user) | new_order.objects.filter(
+                        address_new_order__istartswith = search_order_str, username=request.user) | new_order.objects.filter(
+                            address2_new_order__istartswith = search_order_str, username=request.user) | new_order.objects.filter(
+                                city_new_order__istartswith = search_order_str, username=request.user) | new_order.objects.filter(
+                                    pincode_new_order__istartswith = search_order_str, username=request.user) | new_order.objects.filter(
+                                        state_new_order__istartswith = search_order_str, username=request.user)  
+        order_data = data.values()
+        return JsonResponse(list(order_data),safe=False)
 
 
 @login_required(login_url='/auth/sign-in')
@@ -23,6 +44,9 @@ def order(request):
 
     
     order_data=new_order.objects.filter(username=request.user).all()
+    paginator = Paginator(order_data,5)
+    page_number = request.GET.get('page')
+    page_obj = Paginator.get_page(paginator,page_number)
     
     file_path = os.path.join(settings.BASE_DIR, 'currencies.json')
 
@@ -42,7 +66,7 @@ def order(request):
     if request.method == 'GET':
 
         return render(request, 'orders/order.html', {'currencies': currency_data,
-            'user_preference': user_preference,'order_context':order_data})
+            'user_preference': user_preference,'order_context':order_data, 'page_obj':page_obj})
     else:
 
         currency = request.POST['currency']
